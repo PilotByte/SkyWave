@@ -1,34 +1,53 @@
-import { Menu } from "lucide-react"
+'use client'
+
 import * as React from "react"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Button } from "./button"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
+import { Moon, Sun } from "lucide-react"
+import { useTheme } from "next-themes"
 
 const Header = () => {
+  const { setTheme } = useTheme()
   return (
-    <nav className=" w-full border-b">
-      <div className="items-center px-4 max-w-screen-xl mx-auto md:flex md:px-8">
-        <div className="flex items-center justify-between py-1 md:py-2 md:block">
-          <div className="md:hidden">
-            <button
-              className="text-gray-700 outline-none p-2 rounded-md focus:border-gray-400 focus:border"
-            >
-              <Menu />
-            </button>
-          </div>
-        </div>
-        <div
-          className={`flex-1 justify-self-center pb-3 mt-8
-            `}
-        >
-          <ul className="justify-center items-center space-y-2 md:flex md:space-x-6 text-center md:space-y-0">
-            <li>
-              {/* Add header items */}
-            </li>
-          </ul>
-        </div>
-        <div className="flex gap-3 items-center">
-        </div>
+    <div className="flex h-14 items-center justify-center border-b border-grey">
+      <div className="flex justify-center w-full md:w-auto">
+        <Tabs defaultValue="account" className="w-[400px]">
+          <TabsList className="flex justify-center w-full">
+            <TabsTrigger value="dashboard" className="flex-1 text-center font-bold">Dashboard</TabsTrigger>
+            <TabsTrigger value="test" className="flex-1 text-center font-bold">Test</TabsTrigger>
+            <TabsTrigger value="statistics" className="flex-1 text-center font-bold">Statistics</TabsTrigger>
+            <TabsTrigger value="bla" className="flex-1 text-center font-bold">Bla</TabsTrigger>
+          </TabsList>
+        </Tabs>
       </div>
-    </nav>
-    )
-  }
+      <div className="relative right-5">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" size="icon">
+              <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+              <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+              <span className="sr-only">Toggle theme</span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem onClick={() => setTheme("light")}>
+              Light
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setTheme("dark")}>
+              Dark
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setTheme("system")}>
+              System
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+      <div className="absolute right-10">
+        <Button variant="default">Logout</Button>
+      </div>
+    </div>
+  )
+}
 
 export { Header }

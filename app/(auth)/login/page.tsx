@@ -24,14 +24,14 @@ function LoginCard() {
           <Card className="w-[850px]">
             <CardHeader>
               <CardTitle>Login</CardTitle>
-              <CardDescription>Use your E-Mail address and password to log in to your account</CardDescription>
+              <CardDescription>Use your E-Mail and password to log in to your account</CardDescription>
             </CardHeader>
             <CardContent>
               <form>
                 <div className="grid w-full items-center gap-4">
                   <div className="flex flex-col space-y-1.5">
                     <Label htmlFor="name">E-Mail</Label>
-                    <Input id="name" placeholder="pilot@example.com" />
+                    <Input id="name" placeholder="pilot@flightschool.com" />
                   </div>
                   <div className="flex flex-col space-y-1.5">
                     <Label htmlFor="name">Password</Label>
