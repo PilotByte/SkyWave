@@ -1,27 +1,37 @@
 'use client'
 
 import * as React from "react"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "./button"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
+import Link from "next/link";
 
 const Header = () => {
   const { setTheme } = useTheme()
   return (
     <div className="flex h-14 items-center justify-center border-b border-grey">
+
       <div className="flex justify-center w-full md:w-auto">
         <Tabs defaultValue="account" className="w-[400px]">
           <TabsList className="flex justify-center w-full">
+            {/* Header items */}
             <TabsTrigger value="dashboard" className="flex-1 text-center font-bold">Dashboard</TabsTrigger>
             <TabsTrigger value="test" className="flex-1 text-center font-bold">Test</TabsTrigger>
-            <TabsTrigger value="statistics" className="flex-1 text-center font-bold">Statistics</TabsTrigger>
-            <TabsTrigger value="bla" className="flex-1 text-center font-bold">Bla</TabsTrigger>
+            <TabsTrigger value="statistics" className="flex-1 text-center font-bold">Lorem</TabsTrigger>
+            <TabsTrigger value="bla" className="flex-1 text-center font-bold">Ipsum</TabsTrigger>
           </TabsList>
         </Tabs>
       </div>
-      <div className="relative right-5">
+
+
+      <div className="absolute right-10 flex justify-center gap-3">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" size="icon">
@@ -42,10 +52,11 @@ const Header = () => {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
+        <Button variant="outline" className="font-bold">
+          <Link href="/login">Logout</Link>
+        </Button>
       </div>
-      <div className="absolute right-10">
-        <Button variant="default">Logout</Button>
-      </div>
+
     </div>
   )
 }

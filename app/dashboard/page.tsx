@@ -1,6 +1,11 @@
+import { Header } from "@/components/ui/header"
+
 function Dasboard() {
   return (
-    console.log('Dashboard page called')
+    <div>
+      <Header />
+      <h1 className="flex mt-5 justify-center">Hier entsteht unser dashboard</h1>
+    </div>
   )
 }
 

@@ -11,7 +11,7 @@ import {
 import { Header } from "@/components/ui/header"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Menu } from "lucide-react"
+import Link from "next/link"
 
 function LoginCard() {
   return (
@@ -42,7 +42,9 @@ function LoginCard() {
             </CardContent>
             <CardFooter className="flex justify-between">
               <Button variant="ghost" className="w-1/2">Forgot password?</Button>
-              <Button className="w-1/2 bg-cyan-900">Login</Button>
+              <Button className="w-1/2 font-bold" asChild>
+                <Link href="/dashboard">Login</Link>
+              </Button>
             </CardFooter>
           </Card>
         </div>
