@@ -11,7 +11,7 @@ import {
 import { Header } from "@/components/ui/header"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Menu } from "lucide-react"
+import Link from "next/link"
 
 function LoginCard() {
   return (
@@ -24,14 +24,14 @@ function LoginCard() {
           <Card className="w-[850px]">
             <CardHeader>
               <CardTitle>Login</CardTitle>
-              <CardDescription>Use your E-Mail address and password to log in to your account</CardDescription>
+              <CardDescription>Use your E-Mail and password to log in to your account</CardDescription>
             </CardHeader>
             <CardContent>
               <form>
                 <div className="grid w-full items-center gap-4">
                   <div className="flex flex-col space-y-1.5">
                     <Label htmlFor="name">E-Mail</Label>
-                    <Input id="name" placeholder="pilot@example.com" />
+                    <Input id="name" placeholder="pilot@flightschool.com" />
                   </div>
                   <div className="flex flex-col space-y-1.5">
                     <Label htmlFor="name">Password</Label>
@@ -42,7 +42,9 @@ function LoginCard() {
             </CardContent>
             <CardFooter className="flex justify-between">
               <Button variant="ghost" className="w-1/2">Forgot password?</Button>
-              <Button className="w-1/2 bg-cyan-900">Login</Button>
+              <Button className="w-1/2 font-bold" asChild>
+                <Link href="/dashboard">Login</Link>
+              </Button>
             </CardFooter>
           </Card>
         </div>
