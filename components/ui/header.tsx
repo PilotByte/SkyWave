@@ -18,19 +18,20 @@ const Header = () => {
   return (
     <div className="flex h-14 items-center justify-center border-b border-grey">
 
+      {/* Navbar items */}
       <div className="flex justify-center w-full md:w-auto">
         <Tabs defaultValue="account" className="w-[400px]">
           <TabsList className="flex justify-center w-full">
             {/* Header items */}
             <TabsTrigger value="dashboard" className="flex-1 text-center font-bold">Dashboard</TabsTrigger>
             <TabsTrigger value="test" className="flex-1 text-center font-bold">Test</TabsTrigger>
-            <TabsTrigger value="statistics" className="flex-1 text-center font-bold">Lorem</TabsTrigger>
-            <TabsTrigger value="bla" className="flex-1 text-center font-bold">Ipsum</TabsTrigger>
+            <TabsTrigger value="statistics" className="flex-1 text-center font-bold">Helpdesk</TabsTrigger>
+            <TabsTrigger value="bla" className="flex-1 text-center font-bold">Support us</TabsTrigger>
           </TabsList>
         </Tabs>
       </div>
 
-
+      {/* Darkmode toggle */}
       <div className="absolute right-10 flex justify-center gap-3">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -52,7 +53,7 @@ const Header = () => {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-        <Button variant="outline" className="font-bold">
+        <Button variant="outline" className="font-bold text-red-500">
           <Link href="/login">Logout</Link>
         </Button>
       </div>
