@@ -15,23 +15,32 @@ import Link from "next/link";
 
 const Header = () => {
   const { setTheme } = useTheme()
+  
   return (
     <div className="flex h-14 items-center justify-center border-b border-grey">
 
       {/* Navbar items */}
       <div className="flex justify-center w-full md:w-auto">
-        <Tabs defaultValue="account" className="w-[400px]">
+        <Tabs defaultValue="account" className="w-[350px]">
           <TabsList className="flex justify-center w-full">
             {/* Header items */}
-            <TabsTrigger value="dashboard" className="flex-1 text-center font-bold">Dashboard</TabsTrigger>
-            <TabsTrigger value="test" className="flex-1 text-center font-bold">Test</TabsTrigger>
-            <TabsTrigger value="statistics" className="flex-1 text-center font-bold">Helpdesk</TabsTrigger>
-            <TabsTrigger value="bla" className="flex-1 text-center font-bold">Support us</TabsTrigger>
+            <Link href="/dashboard" passHref>
+              <TabsTrigger value="dashboard" className="flex-1 text-center font-bold">Dashboard</TabsTrigger>
+            </Link>
+            <Link href="/test" passHref>
+              <TabsTrigger value="test" className="flex-1 text-center font-bold">Test</TabsTrigger>
+            </Link>
+            <Link href="/helpdesk" passHref>
+              <TabsTrigger value="statistics" className="flex-1 text-center font-bold">Helpdesk</TabsTrigger>
+            </Link>
+            <Link href="/support" passHref>
+              <TabsTrigger value="support" className="flex-1 text-center font-bold">Support us</TabsTrigger>
+            </Link>
           </TabsList>
         </Tabs>
       </div>
 
-      {/* Darkmode toggle */}
+      {/*Darkmode toggle */}
       <div className="absolute right-10 flex justify-center gap-3">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

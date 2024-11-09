@@ -2,36 +2,40 @@
 
 import { ClickableCard } from "@/components/ui/clickable-card"
 import { Header } from "@/components/ui/header"
-import ProgressChartWithLabel, { ProgressChart } from "./components/ProgressChart"
+import ProgressChartWithLabel from "./components/ProgressChart"
+import { useRouter } from 'next/navigation'
 
-function Dasboard() {
+function Dashboard() {
+  const router = useRouter();
+
   return (
     <div>
       <Header />
-      {/* AZF/BZF clickable cards */}
-      <div className="flex justify-center space-x-4 mt-4 mb-4">
-        <ClickableCard
-          title="AZF Practice"
-          description="Click here to start practicing your AZF theory"
-          onClick={() => null}
-        />
+      <div className="grid gap-4 grid-cols-1 mt-4">
+        {/* Progress chart */}
+        <div>
+          <ProgressChartWithLabel
+            title="Your Progress"
+            description="This graph shows your progress from the last 10 tests"
+          />
+        </div>
 
-        <ClickableCard
-          title="BZF Practice"
-          description="Click here to start practicing your BZF theory"
-          onClick={() => null}
-        />
-      </div>
-
-      {/* Progress chart */}
-      <div>
-        <ProgressChartWithLabel
-          title="Your Progress"
-          description="This graph shows your progress from the last 10 tests"
-        />
+        {/* AZF/BZF clickable cards */}
+        <div className="flex justify-center space-x-4 mt-4 mb-4">
+          <ClickableCard
+            title="AZF Practice"
+            description="Click here to start practicing your AZF theory"
+            onClick={() => router.push('/test')}
+          />
+          <ClickableCard
+            title="BZF Practice"
+            description="Click here to start practicing your BZF theory"
+            onClick={() => router.push('/test')}
+          />
+        </div>
       </div>
     </div>
   )
 }
 
-export default Dasboard
+export default Dashboard
