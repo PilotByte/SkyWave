@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import * as React from "react"
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import * as React from "react";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Moon, Sun } from "lucide-react"
-import { useTheme } from "next-themes"
+} from "@/components/ui/dropdown-menu";
+import { Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
 import Link from "next/link";
 import { Button } from "./ui/button";
 
@@ -32,7 +32,12 @@ const Header = () => {
               </TabsTrigger>
             </Link>
             <Link href="/test/new" passHref>
-              <TabsTrigger value="test" className="flex-1 text-center font-bold">Test</TabsTrigger>
+              <TabsTrigger
+                value="test"
+                className="flex-1 text-center font-bold"
+              >
+                Test
+              </TabsTrigger>
             </Link>
             <Link href="/helpdesk" passHref>
               <TabsTrigger
@@ -51,7 +56,12 @@ const Header = () => {
               </TabsTrigger>
             </Link>
             <Link href="/admin" passHref>
-              <TabsTrigger value="support" className="flex-1 text-center font-bold">Admin</TabsTrigger>
+              <TabsTrigger
+                value="admin"
+                className="flex-1 text-center font-bold"
+              >
+                Admin
+              </TabsTrigger>
             </Link>
           </TabsList>
         </Tabs>
@@ -68,13 +78,13 @@ const Header = () => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => setTheme('light')}>
+            <DropdownMenuItem onClick={() => setTheme("light")}>
               Light
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setTheme('dark')}>
+            <DropdownMenuItem onClick={() => setTheme("dark")}>
               Dark
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setTheme('system')}>
+            <DropdownMenuItem onClick={() => setTheme("system")}>
               System
             </DropdownMenuItem>
           </DropdownMenuContent>

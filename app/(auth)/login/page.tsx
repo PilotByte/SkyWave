@@ -8,7 +8,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Header } from '@/components/ui/header';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { login } from './actions';
@@ -20,9 +19,6 @@ function LoginCard({
 }) {
   return (
     <div>
-      <div>
-        <Header />
-      </div>
       <div>
         <div className="flex items-center justify-center h-[calc(100vh/2)]">
           <Card className="w-[850px]">
