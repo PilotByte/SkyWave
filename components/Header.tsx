@@ -1,17 +1,17 @@
 'use client';
 
-import * as React from 'react';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Button } from './button';
+import * as React from "react"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Moon, Sun } from 'lucide-react';
-import { useTheme } from 'next-themes';
-import Link from 'next/link';
+import { Moon, Sun } from "lucide-react"
+import { useTheme } from "next-themes"
+import Link from "next/link";
+import { Button } from "./ui/button";
 
 const Header = () => {
   const { setTheme } = useTheme();
@@ -20,7 +20,7 @@ const Header = () => {
     <div className="flex h-14 items-center justify-center border-b border-grey">
       {/* Navbar items */}
       <div className="flex justify-center w-full md:w-auto">
-        <Tabs defaultValue="account" className="w-[350px]">
+        <Tabs defaultValue="account" className="w-[420px]">
           <TabsList className="flex justify-center w-full">
             {/* Header items */}
             <Link href="/dashboard" passHref>
@@ -31,13 +31,8 @@ const Header = () => {
                 Dashboard
               </TabsTrigger>
             </Link>
-            <Link href="/test" passHref>
-              <TabsTrigger
-                value="test"
-                className="flex-1 text-center font-bold"
-              >
-                Test
-              </TabsTrigger>
+            <Link href="/test/new" passHref>
+              <TabsTrigger value="test" className="flex-1 text-center font-bold">Test</TabsTrigger>
             </Link>
             <Link href="/helpdesk" passHref>
               <TabsTrigger
@@ -54,6 +49,9 @@ const Header = () => {
               >
                 Support us
               </TabsTrigger>
+            </Link>
+            <Link href="/admin" passHref>
+              <TabsTrigger value="support" className="flex-1 text-center font-bold">Admin</TabsTrigger>
             </Link>
           </TabsList>
         </Tabs>

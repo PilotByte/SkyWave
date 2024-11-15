@@ -1,7 +1,6 @@
 'use client'
 
 import { ClickableCard } from "@/components/ui/clickable-card"
-import { Header } from "@/components/ui/header"
 import ProgressChartWithLabel from "./components/ProgressChart"
 import { useRouter } from 'next/navigation'
 
@@ -10,7 +9,6 @@ function Dashboard() {
 
   return (
     <div>
-      <Header />
       <div className="grid gap-4 grid-cols-1 mt-4">
         {/* Progress chart */}
         <div>
@@ -25,12 +23,12 @@ function Dashboard() {
           <ClickableCard
             title="AZF Practice"
             description="Click here to start practicing your AZF theory"
-            onClick={() => router.push('/test')}
+            onClick={() => router.push('/test/new?pool=azf')}
           />
           <ClickableCard
             title="BZF Practice"
             description="Click here to start practicing your BZF theory"
-            onClick={() => router.push('/test')}
+            onClick={() => router.push('/test/new?pool=bzf')}
           />
         </div>
       </div>
