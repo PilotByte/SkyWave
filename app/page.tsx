@@ -1,10 +1,8 @@
-import { redirect } from "next/navigation"
+import { redirect } from 'next/navigation';
 
 function MainPage() {
-  redirect("/login")
-  return (
-    null
-  )
+  redirect('/dashboard');
+  return null;
 }
 
-export default MainPage
+export default MainPage;
