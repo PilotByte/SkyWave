@@ -11,7 +11,7 @@ export default async function Users() {
   }
 
   return (
-    <div>
+    <div className="mx-4">
       <UserTable columns={columns} data={data} />
     </div>
   );
