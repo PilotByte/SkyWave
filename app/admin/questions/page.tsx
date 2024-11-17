@@ -1,27 +1,18 @@
-"use client";
+import { createClient } from '@/lib/supabase/server';
+import { columns } from './components/columns';
+import { Table } from './components/QuestionTable';
+import { redirect } from 'next/navigation';
 
-import { Separator } from "@/components/ui/separator";
-import { QuestionTable } from "./QuestionsTable";
-
-function Questions() {
+export default async function Users() {
+  const client = await createClient();
+  const { data, error } = await client.from('questions').select('*');
+  if (error) {
+    redirect(`/error?error=${error.message}`);
+  }
 
   return (
-    <div className="space-y-3 h-full flex-col flex ">
-      <div>
-        <h3 className="font-medium text-lg">Sort</h3>
-        <p className="text-muted-foreground text-sm">
-          Get Questions from the Datapool and sort them to the respective
-          Sub-Subjects.
-        </p>
-      </div>
-      <Separator />
-      <QuestionTable
-        questions={[] as any}
-        columns={[]}
-        subSubjects={[]}
-      />
+    <div className="mx-4">
+      <Table columns={columns} data={data} />
     </div>
   );
 }
-
-export default Questions;
