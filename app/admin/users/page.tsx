@@ -96,13 +96,58 @@ async function getData(): Promise<User[]> {
       isAdmin: false,
       isActive: true,
     },
+    {
+      id: "11",
+      username: "nwhite",
+      firstName: "Nancy",
+      lastName: "White",
+      email: "nwhite@example.com",
+      isAdmin: false,
+      isActive: true,
+    },
+    {
+      id: "12",
+      username: "bgreen",
+      firstName: "Brian",
+      lastName: "Green",
+      email: "bgreen@example.com",
+      isAdmin: false,
+      isActive: true,
+    },
+    {
+      id: "13",
+      username: "sblack",
+      firstName: "Sarah",
+      lastName: "Black",
+      email: "sblack@example.com",
+      isAdmin: false,
+      isActive: false,
+    },
+    {
+      id: "14",
+      username: "jyoung",
+      firstName: "James",
+      lastName: "Young",
+      email: "jyoung@example.com",
+      isAdmin: false,
+      isActive: true,
+    },
+    {
+      id: "15",
+      username: "mhill",
+      firstName: "Megan",
+      lastName: "Hill",
+      email: "mhill@example.com",
+      isAdmin: false,
+      isActive: true,
+    },
   ];
 }
 
 export default async function Users() {
   const data = await getData();
   return (
-    <div className="mx-2">
+    <div className="mx-4">
       <UserTable columns={columns} data={data} />
     </div>
   );

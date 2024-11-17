@@ -3,6 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { ArrowUpDown } from "lucide-react";
 
 // Test Data
 // Use data from database later
@@ -19,31 +20,101 @@ export type User = {
 export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "id",
-    header: "ID",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          ID
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
   },
   {
     accessorKey: "username",
-    header: "Username",
+    header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Username
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
   },
   {
     accessorKey: "firstName",
-    header: "First Name",
+    header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            First Name
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
   },
   {
     accessorKey: "lastName",
-    header: "Last Name",
+    header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Last Name
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
   },
   {
     accessorKey: "email",
-    header: "Email",
+    header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            E-Mail
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
   },
   {
     accessorKey: "isAdmin",
-    header: "Admin",
+    header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Admin
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
   },
   {
     accessorKey: "isActive",
-    header: "Active",
+    header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Active
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
   },
   {
     id: "actions",
