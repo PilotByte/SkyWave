@@ -12,16 +12,26 @@ import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import { Button } from "./ui/button";
+import { usePathname } from "next/navigation";
 
 const Header = () => {
   const { setTheme } = useTheme();
+  const path = usePathname()
+
+
 
   return (
     <div className="flex h-14 items-center justify-center border-b border-grey">
       {/* Navbar items */}
       <div className="flex justify-center w-full md:w-auto">
-        <Tabs defaultValue="account" className="w-[420px]">
-          <TabsList className="flex justify-center w-full">
+        <Tabs defaultValue={function () {
+          if (path.includes("dashboard")) return "dashboard";
+          if (path.includes("test")) return "test";
+          if (path.includes("admin")) return "admin";
+          if (path.includes("support")) return "support";
+          return "dashboard";
+        }()} className="w-[420px]">
+          <TabsList className="flex justify-center w-full" >
             {/* Header items */}
             <Link href="/dashboard" passHref>
               <TabsTrigger
