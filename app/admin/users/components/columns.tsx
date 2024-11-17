@@ -2,7 +2,6 @@
 
 import { ColumnDef } from '@tanstack/react-table';
 import { Button } from '@/components/ui/button';
-import { useRouter } from 'next/navigation';
 import { ArrowUpDown } from 'lucide-react';
 import Link from 'next/link';
 import { Database } from '@/lib/supabase/database.types';
@@ -13,26 +12,6 @@ import { Database } from '@/lib/supabase/database.types';
 export const columns: ColumnDef<
   Database['public']['Tables']['profiles']['Row']
 >[] = [
-  {
-    accessorKey: 'id',
-    header: 'ID',
-  },
-  {
-    accessorKey: 'firstname',
-    header: 'First Name',
-  },
-  {
-    accessorKey: 'lastname',
-    header: 'Last Name',
-  },
-  {
-    accessorKey: 'email',
-    header: 'Email',
-  },
-  {
-    accessorKey: 'isAdmin',
-    header: 'Admin',
-  },
   {
     accessorKey: 'id',
     header: ({ column }) => {
@@ -48,21 +27,7 @@ export const columns: ColumnDef<
     },
   },
   {
-    accessorKey: 'username',
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Username
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-  },
-  {
-    accessorKey: 'firstName',
+    accessorKey: 'firstname',
     header: ({ column }) => {
       return (
         <Button
@@ -76,7 +41,7 @@ export const columns: ColumnDef<
     },
   },
   {
-    accessorKey: 'lastName',
+    accessorKey: 'lastname',
     header: ({ column }) => {
       return (
         <Button
@@ -118,27 +83,14 @@ export const columns: ColumnDef<
     },
   },
   {
-    accessorKey: 'isActive',
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Active
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-  },
-  {
+    header: 'Actions',
     id: 'actions',
     cell: ({ row }) => {
       const user = row.original;
 
       return (
-        <Link href={`/admin/user/${user.id}`}>
-          <Button variant="outline" className="font-bold text-blue-600">
+        <Link href={`/admin/users/${user.id}`}>
+          <Button variant="outline" className="font-bold ">
             Manage
           </Button>
         </Link>

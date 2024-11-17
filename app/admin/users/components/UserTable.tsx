@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import * as React from "react";
+import * as React from 'react';
 import {
   ColumnDef,
   flexRender,
@@ -11,7 +11,7 @@ import {
   getSortedRowModel,
   ColumnFiltersState,
   getFilteredRowModel,
-} from "@tanstack/react-table";
+} from '@tanstack/react-table';
 import {
   Table,
   TableBody,
@@ -19,9 +19,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/table';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 interface UserTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -56,10 +56,12 @@ export function UserTable<TData, TValue>({
       <div className="flex items-center py-4">
         <Input
           placeholder="Filter by Last Name..."
-          value={(table.getColumn("lastName")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("lastName")?.setFilterValue(event.target.value)
+          value={
+            (table.getColumn('lastName')?.getFilterValue() as string) ?? ''
           }
+          onChange={(event) => {
+            table.getColumn('lastName')?.setFilterValue(event.target.value);
+          }}
           className="max-w-sm"
         />
       </div>
@@ -70,7 +72,7 @@ export function UserTable<TData, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead key={header.id} className="p-2">
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -88,7 +90,7 @@ export function UserTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
+                  data-state={row.getIsSelected() && 'selected'}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
