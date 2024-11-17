@@ -102,7 +102,7 @@ async function getData(): Promise<User[]> {
 export default async function Users() {
   const data = await getData();
   return (
-    <div>
+    <div className="mx-2">
       <UserTable columns={columns} data={data} />
     </div>
   );
