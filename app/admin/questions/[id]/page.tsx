@@ -1,3 +1,5 @@
-export function ManageUserPage() {
+function ManageQuestionPage() {
   return null;
 }
+
+export default ManageQuestionPage;

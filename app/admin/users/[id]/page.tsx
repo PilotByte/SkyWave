@@ -1,3 +1,5 @@
-export function ManageUserPage() {
+function ManageUserPage() {
   return null;
 }
+
+export default ManageUserPage;

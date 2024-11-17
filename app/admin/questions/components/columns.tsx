@@ -10,7 +10,7 @@ import { Database } from '@/lib/supabase/database.types';
 // Use data from database later
 
 export const columns: ColumnDef<
-  Database['public']['Tables']['profiles']['Row']
+  Database['public']['Tables']['questions']['Row']
 >[] = [
   {
     accessorKey: 'id',
@@ -27,56 +27,79 @@ export const columns: ColumnDef<
     },
   },
   {
-    accessorKey: 'firstname',
+    accessorKey: 'title',
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
-          First Name
+          Text
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
   },
   {
-    accessorKey: 'lastname',
+    accessorKey: 'answers',
+    accessorFn: (f) =>
+      (
+        (f.answers as {
+          text: string;
+          isCorrect: boolean;
+        }[]) || null
+      )
+        ?.map((a) => a.text)
+        .join(', '),
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
-          Last Name
+          Answers
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
   },
   {
-    accessorKey: 'email',
+    accessorKey: 'image',
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
-          E-Mail
+          has Image
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
   },
   {
-    accessorKey: 'isAdmin',
+    accessorKey: 'subject',
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
-          Admin
+          subject
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+  },
+  {
+    accessorKey: 'pdfId',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          PDF Id
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -89,7 +112,7 @@ export const columns: ColumnDef<
       const user = row.original;
 
       return (
-        <Link href={`/admin/users/${user.id}`}>
+        <Link href={`/admin/questions/${user.id}`}>
           <Button variant="outline" className="font-bold ">
             Manage
           </Button>
