@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import React from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import {
@@ -22,6 +22,7 @@ const FormSchema = z.object({
 });
 
 function NewTest() {
+  const router = useRouter();
   const searchParams = useSearchParams();
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -34,6 +35,8 @@ function NewTest() {
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     console.log(data);
+    // Redirecting to ID = 1 for testing
+    router.push(`/test/${1}`);
   }
   return (
     <div className="my-4 max-w-[800px] mx-auto">
