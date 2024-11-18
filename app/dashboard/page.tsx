@@ -1,8 +1,8 @@
-'use client'
+'use client';
 
-import { ClickableCard } from "@/components/ui/clickable-card"
-import ProgressChartWithLabel from "./_components/ProgressChart"
-import { useRouter } from 'next/navigation'
+import { ClickableCard } from '@/components/ui/clickable-card';
+import ProgressChartWithLabel from './_components/ProgressChart';
+import { useRouter } from 'next/navigation';
 
 function Dashboard() {
   const router = useRouter();
@@ -33,7 +33,7 @@ function Dashboard() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Dashboard
+export default Dashboard;
