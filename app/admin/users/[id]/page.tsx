@@ -21,6 +21,7 @@ async function ManageUserPage({ params }: { params: Record<string, string> }) {
       <ResetPasswordForm email={user.email!} />
     </div>
   );
+
 }
 
 export default ManageUserPage;

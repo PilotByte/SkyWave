@@ -1,5 +1,5 @@
 import { Separator } from '@/components/ui/separator';
-import { SidebarNav } from './components/AdminSideNav';
+import { SidebarNav } from './_components/AdminSideNav';
 
 const sidebarNavItems = [
   {
