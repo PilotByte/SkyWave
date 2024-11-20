@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/client';
-import { ResetPasswordForm } from './ResetPassword';
+import { ResetPasswordForm } from './_components/ResetPassword';
 import { redirect } from 'next/navigation';
+import { ChangeDetailsForm } from './_components/ChangeDetails';
 
 async function ManageUserPage({ params }: { params: Record<string, string> }) {
   const supabase = createClient();
@@ -14,10 +15,10 @@ async function ManageUserPage({ params }: { params: Record<string, string> }) {
   if (!user) redirect('/admin/users');
 
   return (
-    <div>
-      {' '}
+    <div className="space-y-8">
       <h1 className="text-xl">Manage User</h1>
-      <ResetPasswordForm email={user.email} />
+      <ChangeDetailsForm id={params.id} />
+      <ResetPasswordForm email={user.email!} />
     </div>
   );
 }
