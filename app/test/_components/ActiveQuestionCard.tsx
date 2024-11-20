@@ -1,21 +1,21 @@
-'use client'
+'use client';
 
-import { useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 
 interface TestQuestionProps {
-  question: string
-  answers: string[]
+  question: string;
+  answers: string[];
 }
 
-function ActiveTestCard({ 
-  question = "What is the capital of France?", 
-  answers = ["London", "Berlin", "Paris", "Madrid"]
+export function ActiveQuestionCard({
+  question = 'What is the capital of France?',
+  answers = ['London', 'Berlin', 'Paris', 'Madrid'],
 }: TestQuestionProps) {
-  const [selectedAnswer, setSelectedAnswer] = useState<string | undefined>()
+  const [selectedAnswer, setSelectedAnswer] = useState<string | undefined>();
 
-  const letters = ['A', 'B', 'C', 'D']
+  const letters = ['A', 'B', 'C', 'D'];
 
   return (
     <Card className="w-full max-w-4xl mx-auto">
@@ -27,7 +27,7 @@ function ActiveTestCard({
           {answers.map((answer, index) => (
             <Button
               key={index}
-              variant={selectedAnswer === answer ? "default" : "outline"}
+              variant={selectedAnswer === answer ? 'default' : 'outline'}
               className="w-full justify-start text-left font-normal"
               onClick={() => setSelectedAnswer(answer)}
             >
@@ -38,7 +38,5 @@ function ActiveTestCard({
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }
-
-export default ActiveTestCard

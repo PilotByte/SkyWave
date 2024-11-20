@@ -15,12 +15,30 @@ import {
 } from '@/components/ui/form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Checkbox } from '@/components/ui/checkbox';
-import CardSelector from '../components/CardSelector';
+import CardSelector from '../_components/CardSelector';
 
 const FormSchema = z.object({
   examMode: z.boolean(),
   subject: z.enum(['azf', 'bzf', 'bzfe']),
 });
+
+const subjects = [
+  {
+    subject: 'azf',
+    title: 'AZF',
+    description: 'Start a test with the current AZF catalog',
+  },
+  {
+    subject: 'bzf',
+    title: 'BZF',
+    description: 'Start a test with the current BZF catalog',
+  },
+  {
+    subject: 'bzfe',
+    title: 'BZF-E',
+    description: 'Start a test with the current BZF-E catalog',
+  },
+];
 
 function NewTest() {
   const router = useRouter();
@@ -41,43 +59,26 @@ function NewTest() {
     router.push(`/test/${1}`);
   }
   return (
-    <div className="max-w-[800px] mx-auto">
+    <div className="max-w-[800px] mx-auto mt-5">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-6 flex-1 mx-5"
+          className="space-y-6 flex-1 mx-5 border rounded p-4"
         >
           <FormField
             control={form.control}
             name="subject"
             render={({ field }) => (
-              <div className="flex justify-center">
-                <div className="mx-1">
+              <div className="flex justify-center gap-5">
+                {subjects.map((subject) => (
                   <CardSelector
-                    title={'AZF'}
-                    description={'Start a test with the current AZF catalog'}
-                    onClick={() => field.onChange({ target: { value: 'azf' } })}
-                    {...field}
+                    key={subject.subject}
+                    title={subject.title}
+                    description={subject.description}
+                    onClick={() => field.onChange(subject.subject)}
+                    isSelected={field.value === subject.subject}
                   />
-                </div>
-                <div className="mx-1">
-                  <CardSelector
-                    title={'BZF'}
-                    description={'Start a test with the current BZF catalog'}
-                    onClick={() => field.onChange({ target: { value: 'bzf' } })}
-                    {...field}
-                  />
-                </div>
-                <div className="mx-1">
-                  <CardSelector
-                    title={'BZF-E'}
-                    description={'Start a test with the current BZF-E catalog'}
-                    onClick={() =>
-                      field.onChange({ target: { value: 'bzf-e' } })
-                    }
-                    {...field}
-                  />
-                </div>
+                ))}
               </div>
             )}
           />
