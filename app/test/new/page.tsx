@@ -2,26 +2,38 @@
 
 import { Button } from '@/components/ui/button';
 import React from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-} from '@/components/ui/form';
+import { Form, FormField } from '@/components/ui/form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Checkbox } from '@/components/ui/checkbox';
+import CardSelector from '../_components/CardSelector';
 
 const FormSchema = z.object({
   examMode: z.boolean(),
   subject: z.enum(['azf', 'bzf', 'bzfe']),
 });
 
+const subjects = [
+  {
+    subject: 'azf',
+    title: 'AZF',
+    description: 'Start a test with the current AZF catalog',
+  },
+  {
+    subject: 'bzf',
+    title: 'BZF',
+    description: 'Start a test with the current BZF catalog',
+  },
+  {
+    subject: 'bzfe',
+    title: 'BZF-E',
+    description: 'Start a test with the current BZF-E catalog',
+  },
+];
+
 function NewTest() {
+  const router = useRouter();
   const searchParams = useSearchParams();
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -35,30 +47,31 @@ function NewTest() {
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     console.log(data);
+    // Redirecting to ID = 1 for testing
+    router.push(`/test/${1}`);
   }
   return (
-    <div className="mx-auto">
+    <div className="max-w-[800px] mx-auto mt-5">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-6 flex-1 mx-5"
+          className="space-y-6 flex-1 mx-5 border rounded p-4"
         >
           <FormField
             control={form.control}
-            name="examMode"
+            name="subject"
             render={({ field }) => (
-              <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
-                <FormControl>
-                  <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
+              <div className="flex justify-center gap-5">
+                {subjects.map((subject) => (
+                  <CardSelector
+                    key={subject.subject}
+                    title={subject.title}
+                    description={subject.description}
+                    onClick={() => field.onChange(subject.subject)}
+                    isSelected={field.value === subject.subject}
                   />
-                </FormControl>
-                <div className="space-y-1 leading-none">
-                  <FormLabel>Label</FormLabel>
-                  <FormDescription>Description</FormDescription>
-                </div>
-              </FormItem>
+                ))}
+              </div>
             )}
           />
           <Button type="submit">Submit</Button>
