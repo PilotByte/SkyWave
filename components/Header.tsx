@@ -1,37 +1,38 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import * as React from 'react';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Moon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
-import Link from "next/link";
-import { Button } from "./ui/button";
-import { usePathname } from "next/navigation";
+} from '@/components/ui/dropdown-menu';
+import { Moon, Sun } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import Link from 'next/link';
+import { Button } from './ui/button';
+import { usePathname } from 'next/navigation';
 
 const Header = () => {
   const { setTheme } = useTheme();
-  const path = usePathname()
-
-
+  const path = usePathname();
 
   return (
-    <div className="flex h-14 items-center justify-center border-b border-grey">
+    <div className="flex h-14 items-center justify-center bg-slate-800">
       {/* Navbar items */}
       <div className="flex justify-center w-full md:w-auto">
-        <Tabs defaultValue={function () {
-          if (path.includes("dashboard")) return "dashboard";
-          if (path.includes("test")) return "test";
-          if (path.includes("admin")) return "admin";
-          if (path.includes("support")) return "support";
-          return "dashboard";
-        }()} className="w-[420px]">
-          <TabsList className="flex justify-center w-full" >
+        <Tabs
+          defaultValue={(function () {
+            if (path.includes('dashboard')) return 'dashboard';
+            if (path.includes('test')) return 'test';
+            if (path.includes('admin')) return 'admin';
+            if (path.includes('support')) return 'support';
+            return 'dashboard';
+          })()}
+          className="w-[420px]"
+        >
+          <TabsList className="flex justify-center w-full">
             {/* Header items */}
             <Link href="/dashboard" passHref>
               <TabsTrigger
@@ -88,13 +89,13 @@ const Header = () => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => setTheme("light")}>
+            <DropdownMenuItem onClick={() => setTheme('light')}>
               Light
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setTheme("dark")}>
+            <DropdownMenuItem onClick={() => setTheme('dark')}>
               Dark
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setTheme("system")}>
+            <DropdownMenuItem onClick={() => setTheme('system')}>
               System
             </DropdownMenuItem>
           </DropdownMenuContent>
