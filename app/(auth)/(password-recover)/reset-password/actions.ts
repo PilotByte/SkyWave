@@ -18,6 +18,7 @@ export const resetPassword = async (formData: FormData) => {
   });
 
   if (reset.error) {
+    console.log(reset.error);
     return redirect(`/reset-password?error=${reset.error.message}`);
   }
 

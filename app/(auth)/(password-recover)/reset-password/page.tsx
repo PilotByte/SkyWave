@@ -14,8 +14,10 @@ import { Label } from '@/components/ui/label';
 import Link from 'next/link';
 import { resetPassword } from './actions';
 import { useSearchParams } from 'next/navigation';
+import { createClient } from '@/lib/supabase/client';
 
 const RequestReset = () => {
+  createClient();
   const params = useSearchParams();
 
   return (

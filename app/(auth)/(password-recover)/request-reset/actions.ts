@@ -6,10 +6,12 @@ import { redirect } from 'next/navigation';
 export const sendResetEmail = async (formData: FormData) => {
   const supabase = await createClient();
   const email = formData.get('email') as string;
-  await supabase.auth.resetPasswordForEmail(email, {
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/reset-password`,
   });
-  redirect(
-    `/request-reset?info=Password reset link sent to ${email}, it it exists`
-  );
+
+  if (error) {
+    return redirect(`/request-reset?error=${error.message}`);
+  }
+  redirect(`/login?info=Password reset link sent to ${email}, it it exists`);
 };
