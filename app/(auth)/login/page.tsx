@@ -11,6 +11,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { login } from './actions';
+import Link from 'next/link';
 
 function LoginCard({
   searchParams,
@@ -20,7 +21,7 @@ function LoginCard({
   return (
     <div>
       <div>
-        <div className="flex items-center justify-center h-[calc(100vh/2)]">
+        <div className="flex items-center justify-center mt-[100px] md:mt-[1/2vh]">
           <Card className="w-[850px]">
             <form>
               <CardHeader>
@@ -49,8 +50,13 @@ function LoginCard({
                   </div>
                 </div>
               </CardContent>
-              <CardFooter className="flex flex-col">
-                <p className="text-red-600 font-bold text-lg my-3">
+              <CardFooter className="flex flex-col gap-3">
+                  <Link href="/register" className='w-full'>
+                    <p className="cursor-pointer">
+                      No account yet? Register now!
+                    </p>
+                  </Link>
+                <p className="text-red-600 font-bold text-lg">
                   {searchParams?.error}
                 </p>
                 <div className="flex justify-between w-full">

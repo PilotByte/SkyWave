@@ -1,9 +1,18 @@
-'use client'
+import { createClient } from '@/lib/supabase/server';
+import { columns } from './components/columns';
+import UserTable from './components/UserTable';
+import { redirect } from 'next/navigation';
 
-function Users() {
+export default async function Users() {
+  const client = await createClient();
+  const { data, error } = await client.from('profiles').select('*');
+  if (error) {
+    redirect(`/error?error=${error.message}`);
+  }
+
   return (
-    null
+    <div className="mx-4">
+      <UserTable columns={columns} data={data} />
+    </div>
   );
 }
-
-export default Users;
