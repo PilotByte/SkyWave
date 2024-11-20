@@ -23,7 +23,6 @@ const FormSchema = z.object({
 
 function NewTest() {
   const searchParams = useSearchParams();
-  const pool = searchParams.get("pool");
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
