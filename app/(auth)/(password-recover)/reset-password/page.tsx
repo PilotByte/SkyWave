@@ -15,10 +15,21 @@ import Link from 'next/link';
 import { resetPassword } from './actions';
 import { useSearchParams } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
+import { useEffect, useState } from 'react';
 
 const RequestReset = () => {
-  createClient();
+  const supabase = createClient();
   const params = useSearchParams();
+  const [sessionRestored, setSessionRestored] = useState(false);
+
+  useEffect(() => {
+    supabase.auth.onAuthStateChange(async (event) => {
+      if (event === 'SIGNED_IN') {
+        setSessionRestored(true);
+      }
+    });
+    supabase.auth.exchangeCodeForSession(params.get('code') || '');
+  }, [supabase.auth, params]);
 
   return (
     <div className="flex items-center justify-center mt-[100px] md:mt-[1/2vh]">
@@ -49,6 +60,11 @@ const RequestReset = () => {
             <p className="text-red-600 font-bold text-lg">
               {params.get('error')}
             </p>
+            {sessionRestored && (
+              <p className="text-green-600 font-bold text-lg">
+                Session restored, please reset your password
+              </p>
+            )}
             <div className="flex w-full">
               <Link href={'/login'} className="flex-1 flex">
                 <Button variant="ghost" className="flex-1">
