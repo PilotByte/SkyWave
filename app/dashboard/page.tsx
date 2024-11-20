@@ -1,7 +1,7 @@
 'use client'
 
 import { ClickableCard } from "@/components/ui/clickable-card"
-import ProgressChartWithLabel from "./components/ProgressChart"
+import ProgressChartWithLabel from "./_components/ProgressChart"
 import { useRouter } from 'next/navigation'
 
 function Dashboard() {

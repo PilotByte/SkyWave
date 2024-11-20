@@ -1,7 +1,5 @@
 "use client";
 
-import AdminSidebar from "@/components/AdminSidebar";
-
 function Admin() {
   return (
     // TODO Benutzerübersicht
