@@ -11,18 +11,21 @@ export type Database = {
     Tables: {
       profiles: {
         Row: {
+          email: string | null
           firstname: string | null
           id: string
           isAdmin: boolean
           lastname: string | null
         }
         Insert: {
+          email?: string | null
           firstname?: string | null
           id: string
           isAdmin?: boolean
           lastname?: string | null
         }
         Update: {
+          email?: string | null
           firstname?: string | null
           id?: string
           isAdmin?: boolean
@@ -32,7 +35,7 @@ export type Database = {
       }
       questions: {
         Row: {
-          answers: Json | null
+          answers: Json[] | null
           created_at: string
           id: number
           image: string | null
@@ -41,7 +44,7 @@ export type Database = {
           title: string | null
         }
         Insert: {
-          answers?: Json | null
+          answers?: Json[] | null
           created_at?: string
           id?: number
           image?: string | null
@@ -50,7 +53,7 @@ export type Database = {
           title?: string | null
         }
         Update: {
-          answers?: Json | null
+          answers?: Json[] | null
           created_at?: string
           id?: number
           image?: string | null
