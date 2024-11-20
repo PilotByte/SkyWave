@@ -8,15 +8,8 @@ function CustomFooter() {
         <div className="flex flex-col sm:flex-row justify-center items-center">
           <div className="mb-4 sm:mb-0 flex items-center">
             <p className="text-sm mr-4">
-              &copy; {new Date().getFullYear()} Pilotbyte GbR
+              &copy; {new Date().getFullYear()} PilotByte GbR
             </p>
-            <a
-              href="https://github.com/PilotByte/SkyWave"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition-colors duration-200"
-              aria-label="GitHub repository"
-            ></a>
           </div>
           <nav className="flex space-x-4 mx-6">
             <Link
@@ -35,8 +28,15 @@ function CustomFooter() {
         </div>
         <div className="mt-4 text-xs text-center text-gray-400 flex items-center justify-center space-x-2">
           <p>This project is open source</p>
-          <div>
+          <div>            <a
+              href="https://github.com/PilotByte/SkyWave"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white transition-colors duration-200"
+              aria-label="SkyWave GitHub repository"
+            >
             <Github size={20} />
+            </a>
           </div>
         </div>
       </div>
