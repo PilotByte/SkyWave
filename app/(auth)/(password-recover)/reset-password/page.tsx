@@ -18,8 +18,6 @@ import { useSearchParams } from 'next/navigation';
 const RequestReset = () => {
   const params = useSearchParams();
 
-  console.log('params', params);
-
   return (
     <div className="flex items-center justify-center mt-[100px] md:mt-[1/2vh]">
       <Card className="w-[850px]">

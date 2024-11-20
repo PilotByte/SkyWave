@@ -43,7 +43,7 @@ const RequestReset = ({
             <p className="text-red-600 font-bold text-lg">
               {searchParams?.error}
             </p>
-
+            <p className="font-bold text-lg">{searchParams?.info}</p>
             <div className="flex w-full">
               <Link href={'/login'} className="flex-1 flex">
                 <Button variant="ghost" className="flex-1">
