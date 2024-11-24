@@ -1,34 +1,43 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
-import React from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { Form, FormField } from '@/components/ui/form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import CardSelector from '../_components/CardSelector';
+import { Button } from "@/components/ui/button";
+import React from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import CardSelector from "../_components/CardSelector";
+import { Switch } from "@/components/ui/switch";
 
 const FormSchema = z.object({
   examMode: z.boolean(),
-  subject: z.enum(['azf', 'bzf', 'bzfe']),
+  subject: z.enum(["azf", "bzf", "bzfe"]),
+  amount: z.number().min(1),
 });
 
 const subjects = [
   {
-    subject: 'azf',
-    title: 'AZF',
-    description: 'Start a test with the current AZF catalog',
+    subject: "azf",
+    title: "AZF",
+    description: "Start a test with the current AZF catalog",
   },
   {
-    subject: 'bzf',
-    title: 'BZF',
-    description: 'Start a test with the current BZF catalog',
+    subject: "bzf",
+    title: "BZF",
+    description: "Start a test with the current BZF catalog",
   },
   {
-    subject: 'bzfe',
-    title: 'BZF-E',
-    description: 'Start a test with the current BZF-E catalog',
+    subject: "bzfe",
+    title: "BZF-E",
+    description: "Start a test with the current BZF-E catalog",
   },
 ];
 
@@ -39,9 +48,10 @@ function NewTest() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      examMode: true,
-      subject: (searchParams.get('pool') ||
-        'azf') as (typeof FormSchema)['_output']['subject'],
+      examMode: false,
+      subject: (searchParams.get("pool") ||
+        "azf") as (typeof FormSchema)["_output"]["subject"],
+      amount: 1,
     },
   });
 
@@ -74,7 +84,38 @@ function NewTest() {
               </div>
             )}
           />
-          <Button type="submit">Submit</Button>
+          <FormField
+            control={form.control}
+            name="examMode"
+            render={({ field }) => (
+              <div className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+                <FormItem className="flex-grow">
+                  <div>
+                    <FormLabel className="font-bold">Exam Mode</FormLabel>
+                    <FormDescription>
+                      Enable exam mode for a more realistic test experience.
+                    </FormDescription>
+                  </div>
+                </FormItem>
+                <FormControl>
+                  <Switch
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+              </div>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="amount"
+            render={({ field }) => (
+              <div>
+                {/* Enter code for amount selector */}
+              </div>
+            )}
+          />
+          <Button type="submit">Start Test</Button>
         </form>
       </Form>
     </div>
