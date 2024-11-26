@@ -118,28 +118,28 @@ export type Database = {
       tests: {
         Row: {
           created_at: string
+          examMode: boolean
           excludeFromStatistics: boolean
-          finishedAt: string
+          finishedAt: string | null
           id: number
-          practice: boolean
           subject: Database["public"]["Enums"]["subject"]
           user: string
         }
         Insert: {
           created_at?: string
+          examMode?: boolean
           excludeFromStatistics?: boolean
-          finishedAt: string
+          finishedAt?: string | null
           id?: number
-          practice?: boolean
           subject: Database["public"]["Enums"]["subject"]
           user: string
         }
         Update: {
           created_at?: string
+          examMode?: boolean
           excludeFromStatistics?: boolean
-          finishedAt?: string
+          finishedAt?: string | null
           id?: number
-          practice?: boolean
           subject?: Database["public"]["Enums"]["subject"]
           user?: string
         }
