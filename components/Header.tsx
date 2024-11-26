@@ -13,7 +13,7 @@ const Header = () => {
   const path = usePathname();
 
   return (
-    <div className="flex h-14 items-center justify-center bg-slate-200 dark:bg-slate-800 drop-shadow-lg">
+    <div className="flex h-14 items-center justify-center bg-slate-200 dark:bg-slate-800 drop-shadow">
       {/* Navbar items */}
       <div className="absolute left-10">
       <Image

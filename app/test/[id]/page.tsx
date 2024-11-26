@@ -1,18 +1,38 @@
-'use client';
+import { createClient } from "@/lib/supabase/server";
+import { ActiveQuestionCard } from "../_components/ActiveQuestionCard";
 
-import { ActiveQuestionCard } from '../_components/ActiveQuestionCard';
+async function TestInProgress({
+  params,
+  searchParams,
+}: {
+  params: {
+    id: string;
+  };
+  searchParams: Record<string, string>;
+}) {
+  const client = await createClient();
 
-function TestInProgress() {
+  const { data: testData, error } = await client
+    .from("answers")
+    .select("*, question (*)")
+    .eq("test", params.id);
+
+  if (error) {
+    console.error(error);
+    return null;
+  }
+
+  const nQuestion = parseInt(searchParams.n || "0");
+
+  const activeQuestion = testData[nQuestion];
+
+  console.log(activeQuestion);
+
   return (
     <div className="my-4">
       <ActiveQuestionCard
-        question={'What is the capital of France?'}
-        answers={[
-          'Paris',
-          'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
-          'Berlin',
-          'Madrid',
-        ]}
+        question={activeQuestion.question.title}
+        answers={activeQuestion.question.answers.map((answer) => answer.text)}
       />
     </div>
   );
