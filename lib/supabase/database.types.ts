@@ -87,31 +87,31 @@ export type Database = {
       }
       questions: {
         Row: {
-          answers: Json[] | null
+          answers: Json[]
           created_at: string
           id: number
           image: string | null
-          pdfId: string | null
-          subject: Database["public"]["Enums"]["subject"] | null
-          title: string | null
+          pdfId: string
+          subject: Database["public"]["Enums"]["subject"]
+          title: string
         }
         Insert: {
-          answers?: Json[] | null
+          answers?: Json[]
           created_at?: string
           id?: number
           image?: string | null
-          pdfId?: string | null
-          subject?: Database["public"]["Enums"]["subject"] | null
-          title?: string | null
+          pdfId: string
+          subject: Database["public"]["Enums"]["subject"]
+          title?: string
         }
         Update: {
-          answers?: Json[] | null
+          answers?: Json[]
           created_at?: string
           id?: number
           image?: string | null
-          pdfId?: string | null
-          subject?: Database["public"]["Enums"]["subject"] | null
-          title?: string | null
+          pdfId?: string
+          subject?: Database["public"]["Enums"]["subject"]
+          title?: string
         }
         Relationships: []
       }
