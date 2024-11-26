@@ -20,11 +20,16 @@ import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
 import { createClient } from "@/lib/supabase/client";
 import { Database } from "@/lib/supabase/database.types";
+import { Filters } from "./Filters";
+import { filter } from "./filter";
+import { useMemo } from "react";
+import test from "node:test";
 
-const FormSchema = z.object({
+export const FormSchema = z.object({
   examMode: z.boolean(),
   subject: z.enum(["azf", "bzf", "bzfe"]),
   amount: z.number().min(1),
+  filter: z.array(z.string()),
 });
 
 const subjects = [
@@ -54,6 +59,10 @@ function NewTestPage() {
     Database["public"]["Tables"]["questions"]["Row"][]
   >([]);
 
+  const [answers, setAnswers] = useState<
+    Database["public"]["Tables"]["answers"]["Row"][]
+  >([]);
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -61,12 +70,53 @@ function NewTestPage() {
       subject: (searchParams.get("pool") ||
         "azf") as (typeof FormSchema)["_output"]["subject"],
       amount: 1, // change to catalog amount
+      filter: [],
     },
   });
-
   const subject = form.watch("subject");
+  const formFilter = form.watch("filter");
+  const amount = form.watch("amount");
+
+  const filteredQuestions = useMemo(() => 
+    questions.filter((fq) => {
+      return filter.some((f) => {
+        const filterFunction = f.getFilterFn(
+          answers.filter((a) => a.question == fq.id) || []
+        );
+        if (!formFilter.length) return true;
+        if (!formFilter.includes(f.value)) return false;
+        return filterFunction(fq);
+      });
+    }), [questions, answers, formFilter]
+  ) 
 
   useEffect(() => {
+    form.setValue("amount", filteredQuestions.length);
+  }, [filteredQuestions, form.setValue])
+
+  const reducedQuestions = [...filteredQuestions];
+  const countQuestionsToBeRemoved = filteredQuestions.length - amount
+      
+   // number of items to remove
+  for (let i = 0; i < countQuestionsToBeRemoved; i++) {
+    const randomIndex = Math.floor(Math.random() * reducedQuestions.length);
+    reducedQuestions.splice(randomIndex, 1);
+  }
+
+  useEffect(() => {
+    const getSubjectAnswers = async () => {
+      const { data, error } = await client
+        .from("answers")
+        .select("*, test (subject)")
+        .eq("test.subject", subject);
+      if (error) {
+        console.error(error);
+        return;
+      }
+      setAnswers(data);
+    };
+    getSubjectAnswers();
+    
     const getSubjectQuestions = async () => {
       const { data, error } = await client
         .from("questions")
@@ -81,10 +131,34 @@ function NewTestPage() {
     getSubjectQuestions();
   }, [client, subject]);
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
-    // Redirecting to ID = 1 for testing
-    router.push(`/test/${1}`);
+  async function onSubmit(formData: z.infer<typeof FormSchema>) {
+    const {data: user} = await client.auth.getUser()
+
+    const userId = user.user?.id
+    if (!userId) {
+      return;
+    }
+
+    const {data: newTest, error} = await client.from("tests").insert({
+      user: userId,
+      finishedAt: null,
+      examMode: formData.examMode,
+      excludeFromStatistics: false,
+      subject: formData.subject,
+    }).select("*").single()
+
+    if(error || !newTest) {
+      console.error(error);
+      return;
+    }
+
+    await client.from("answers").insert(reducedQuestions.map((question) => ({
+      user: userId,
+      question: question.id,
+      test: newTest.id,
+    })));
+    
+    router.push(`/test/${newTest.id}`);
   }
   return (
     <div className="max-w-[800px] mx-auto mt-5">
@@ -119,8 +193,8 @@ function NewTestPage() {
                   <div>
                     <FormLabel className="font-bold">Exam Mode</FormLabel>
                     <FormDescription>
-                      Enable exam mode to practice the theory under exam conditions for your exam at
-                      the Bundesnetzagentur
+                      Enable exam mode to practice the theory under exam
+                      conditions for your exam at the Bundesnetzagentur
                     </FormDescription>
                   </div>
                 </FormItem>
@@ -133,6 +207,7 @@ function NewTestPage() {
               </div>
             )}
           />
+          <Filters formControl={form.control} />
           <FormField
             control={form.control}
             name="amount"
@@ -154,21 +229,22 @@ function NewTestPage() {
                               ? 1
                               : Math.min(
                                   Math.max(newValue, 1),
-                                  questions.length
+                                  filteredQuestions.length
                                 )
                           );
                         }}
                         min={1}
-                        max={questions.length}
+                        max={filteredQuestions.length}
                       />
                     )}
                   />
-                  <span>/ {questions.length}</span>
+                  <span>/ {filteredQuestions.length}</span>
+                  <span>/ {reducedQuestions.length}</span>
                 </FormLabel>
                 <FormControl>
                   <Slider
-                    min={1}
-                    max={questions.length}
+                    min={0}
+                    max={filteredQuestions.length}
                     step={1}
                     value={[field.value]}
                     onValueChange={(value) => field.onChange(value[0])}
