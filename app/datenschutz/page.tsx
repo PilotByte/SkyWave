@@ -1,6 +1,6 @@
 function Datenschutz() {
   return (
-    <div className="mt-10 border rounded-lg px-4 py-4">
+    <div className="mt-10 border rounded-lg px-4 py-4 mb-6">
       <h1 className="font-bold">Datenschutz&shy;erkl&auml;rung</h1>
       <br />
       <h2 className="font-bold">1. Datenschutz auf einen Blick</h2>

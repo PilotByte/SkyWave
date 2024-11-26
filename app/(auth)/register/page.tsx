@@ -50,7 +50,7 @@ function RegisterCard({
                 </div>
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="password">Password</Label>
-                  <Input name="password" id="password" placeholder="Password" />
+                  <Input name="password" id="password" type="password" placeholder="Password" />
                 </div>
               </div>
             </CardContent>
