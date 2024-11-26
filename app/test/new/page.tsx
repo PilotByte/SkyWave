@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import {
   Form,
@@ -16,12 +16,16 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import CardSelector from "../_components/CardSelector";
 import { Switch } from "@/components/ui/switch";
+import { Slider } from "@/components/ui/slider";
+import { Input } from "@/components/ui/input";
 
 const FormSchema = z.object({
   examMode: z.boolean(),
   subject: z.enum(["azf", "bzf", "bzfe"]),
   amount: z.number().min(1),
 });
+
+const maxQuestions = 100;
 
 const subjects = [
   {
@@ -51,7 +55,7 @@ function NewTest() {
       examMode: false,
       subject: (searchParams.get("pool") ||
         "azf") as (typeof FormSchema)["_output"]["subject"],
-      amount: 1,
+      amount: 1, // change to catalog amount
     },
   });
 
@@ -110,9 +114,44 @@ function NewTest() {
             control={form.control}
             name="amount"
             render={({ field }) => (
-              <div>
-                {/* Enter code for amount selector */}
-              </div>
+              <FormItem>
+                <FormLabel className="flex items-center gap-2">
+                  <Controller
+                    name="amount"
+                    control={form.control}
+                    render={({ field: { onChange, value } }) => (
+                      <Input
+                        type="number"
+                        className="max-w-16"
+                        value={value}
+                        onChange={(e) => {
+                          const newValue = parseInt(e.target.value, 10);
+                          onChange(
+                            isNaN(newValue)
+                              ? 1
+                              : Math.min(Math.max(newValue, 1), maxQuestions)
+                          );
+                        }}
+                        min={1}
+                        max={maxQuestions}
+                      />
+                    )}
+                  />
+                  <span>/ {maxQuestions}</span>
+                </FormLabel>
+                <FormControl>
+                  <Slider
+                    min={1}
+                    max={maxQuestions}
+                    step={1}
+                    value={[field.value]}
+                    onValueChange={(value) => field.onChange(value[0])}
+                  />
+                </FormControl>
+                <FormDescription>
+                  Select the amount of questions you want to answer.
+                </FormDescription>
+              </FormItem>
             )}
           />
           <Button type="submit">Start Test</Button>
