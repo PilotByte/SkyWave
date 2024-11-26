@@ -9,6 +9,58 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      answers: {
+        Row: {
+          created_at: string
+          id: number
+          isCorrect: boolean
+          question: number
+          selectedAnswer: number | null
+          test: number
+          user: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          isCorrect?: boolean
+          question: number
+          selectedAnswer?: number | null
+          test: number
+          user: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          isCorrect?: boolean
+          question?: number
+          selectedAnswer?: number | null
+          test?: number
+          user?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "answers_question_fkey"
+            columns: ["question"]
+            isOneToOne: false
+            referencedRelation: "questions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "answers_test_fkey"
+            columns: ["test"]
+            isOneToOne: false
+            referencedRelation: "tests"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "answers_user_fkey"
+            columns: ["user"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           email: string | null
@@ -62,6 +114,44 @@ export type Database = {
           title?: string | null
         }
         Relationships: []
+      }
+      tests: {
+        Row: {
+          created_at: string
+          excludeFromStatistics: boolean
+          finishedAt: string
+          id: number
+          practice: boolean
+          subject: Database["public"]["Enums"]["subject"]
+          user: string
+        }
+        Insert: {
+          created_at?: string
+          excludeFromStatistics?: boolean
+          finishedAt: string
+          id?: number
+          practice?: boolean
+          subject: Database["public"]["Enums"]["subject"]
+          user: string
+        }
+        Update: {
+          created_at?: string
+          excludeFromStatistics?: boolean
+          finishedAt?: string
+          id?: number
+          practice?: boolean
+          subject?: Database["public"]["Enums"]["subject"]
+          user?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tests_user_fkey"
+            columns: ["user"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
