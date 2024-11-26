@@ -66,10 +66,10 @@ const ProgressChart = () => {
                     }}
                 />
                 <ReferenceLine
-                    y={80}
+                    y={75}
                     stroke="currentColor"
                     strokeDasharray="3 3"
-                    label={{ value: 'Pass mark: 80%', position: 'insideTopRight', fontSize: 12, fontWeight: 'bold' }}
+                    label={{ value: 'Pass mark: 75%', position: 'insideTopRight', fontSize: 12, fontWeight: 'bold' }}
                 />
                 <Line type="monotone" dataKey="score" stroke="hsl(var(--primary))" strokeWidth={2} dot={{ strokeWidth: 2 }} />
             </LineChart>

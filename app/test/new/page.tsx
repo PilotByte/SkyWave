@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -18,14 +18,14 @@ import CardSelector from "../_components/CardSelector";
 import { Switch } from "@/components/ui/switch";
 import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
+import { createClient } from "@/lib/supabase/client";
+import { Database } from "@/lib/supabase/database.types";
 
 const FormSchema = z.object({
   examMode: z.boolean(),
   subject: z.enum(["azf", "bzf", "bzfe"]),
   amount: z.number().min(1),
 });
-
-const maxQuestions = 100;
 
 const subjects = [
   {
@@ -45,9 +45,14 @@ const subjects = [
   },
 ];
 
-function NewTest() {
+function NewTestPage() {
+  const client = createClient();
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  const [questions, setQuestions] = useState<
+    Database["public"]["Tables"]["questions"]["Row"][]
+  >([]);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -58,6 +63,23 @@ function NewTest() {
       amount: 1, // change to catalog amount
     },
   });
+
+  const subject = form.watch("subject");
+
+  useEffect(() => {
+    const getSubjectQuestions = async () => {
+      const { data, error } = await client
+        .from("questions")
+        .select("*")
+        .eq("subject", subject);
+      if (error) {
+        console.error(error);
+        return;
+      }
+      setQuestions(data);
+    };
+    getSubjectQuestions();
+  }, [client, subject]);
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     console.log(data);
@@ -92,12 +114,13 @@ function NewTest() {
             control={form.control}
             name="examMode"
             render={({ field }) => (
-              <div className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+              <div className="flex flex-row items-center justify-between rounded-lg border p-3 gap-3 shadow-sm">
                 <FormItem className="flex-grow">
                   <div>
                     <FormLabel className="font-bold">Exam Mode</FormLabel>
                     <FormDescription>
-                      Enable exam mode for a more realistic test experience.
+                      Enable exam mode to practice the theory under exam conditions for your exam at
+                      the Bundesnetzagentur
                     </FormDescription>
                   </div>
                 </FormItem>
@@ -129,20 +152,23 @@ function NewTest() {
                           onChange(
                             isNaN(newValue)
                               ? 1
-                              : Math.min(Math.max(newValue, 1), maxQuestions)
+                              : Math.min(
+                                  Math.max(newValue, 1),
+                                  questions.length
+                                )
                           );
                         }}
                         min={1}
-                        max={maxQuestions}
+                        max={questions.length}
                       />
                     )}
                   />
-                  <span>/ {maxQuestions}</span>
+                  <span>/ {questions.length}</span>
                 </FormLabel>
                 <FormControl>
                   <Slider
                     min={1}
-                    max={maxQuestions}
+                    max={questions.length}
                     step={1}
                     value={[field.value]}
                     onValueChange={(value) => field.onChange(value[0])}
@@ -161,4 +187,4 @@ function NewTest() {
   );
 }
 
-export default NewTest;
+export default NewTestPage;
