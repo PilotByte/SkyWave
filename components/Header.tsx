@@ -13,7 +13,7 @@ const Header = () => {
   const path = usePathname();
 
   return (
-    <div className="flex h-14 items-center justify-center bg-slate-200 dark:bg-slate-800 drop-shadow">
+    <div className="flex h-14 items-center justify-center bg-secondary drop-shadow">
       {/* Navbar items */}
       <div className="absolute left-10">
         <Image src={logo} alt="Logo" width={40} height={40} />
@@ -32,42 +32,27 @@ const Header = () => {
           <TabsList className="flex justify-center w-full">
             {/* Header items */}
             <Link href="/dashboard" passHref>
-              <TabsTrigger
-                value="dashboard"
-                className="flex-1 text-center font-bold"
-              >
+              <TabsTrigger value="dashboard" className="flex-1 text-center">
                 Dashboard
               </TabsTrigger>
             </Link>
             <Link href="/test/new" passHref>
-              <TabsTrigger
-                value="test"
-                className="flex-1 text-center font-bold"
-              >
+              <TabsTrigger value="test" className="flex-1 text-center">
                 Test
               </TabsTrigger>
             </Link>
             <Link href="/helpdesk" passHref>
-              <TabsTrigger
-                value="statistics"
-                className="flex-1 text-center font-bold"
-              >
+              <TabsTrigger value="statistics" className="flex-1 text-center">
                 Helpdesk
               </TabsTrigger>
             </Link>
             <Link href="/support" passHref>
-              <TabsTrigger
-                value="support"
-                className="flex-1 text-center font-bold"
-              >
+              <TabsTrigger value="support" className="flex-1 text-center">
                 Support us
               </TabsTrigger>
             </Link>
             <Link href="/admin" passHref>
-              <TabsTrigger
-                value="admin"
-                className="flex-1 text-center font-bold"
-              >
+              <TabsTrigger value="admin" className="flex-1 text-center">
                 Admin
               </TabsTrigger>
             </Link>

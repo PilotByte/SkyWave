@@ -9,11 +9,11 @@ import Link from 'next/link';
 import { CompleteTest } from '../_components/completeTest';
 
 async function TestInProgress({
-  params,
+  params: { id: testId },
   searchParams,
 }: {
   params: {
-    test: string;
+    id: string;
   };
   searchParams: Record<string, string>;
 }) {
@@ -22,13 +22,13 @@ async function TestInProgress({
   const { data: answers, error: answersError } = await client
     .from('answers')
     .select('*, question:questions(*)')
-    .eq('test', params.test)
+    .eq('test', testId)
     .order('id', { ascending: true });
 
   const { data: test, error: testError } = await client
     .from('tests')
     .select('*')
-    .eq('id', params.test)
+    .eq('id', testId)
     .single();
 
   if (answersError || testError) {
@@ -41,7 +41,7 @@ async function TestInProgress({
   const activeAnswer = answers[nQuestion];
 
   if (!activeAnswer) {
-    return redirect(`/test/${params.test}?n=0`);
+    return redirect(`/test/${testId}?n=0`);
   }
 
   console.log(activeAnswer);
@@ -57,13 +57,13 @@ async function TestInProgress({
       </aside>
       <div className="my-4 space-y-2">
         <div className="w-full flex justify-between">
-          <Link href={`/test/${params.test}?n=${nQuestion - 1}`}>
+          <Link href={`/test/${testId}?n=${nQuestion - 1}`}>
             {nQuestion > 0 && <Button variant={'link'}>Previous</Button>}
           </Link>
           <h1 className="text-2xl font-bold">
             {nQuestion} / {answers.length}
           </h1>
-          <Link href={`/test/${params.test}?n=${nQuestion + 1}`}>
+          <Link href={`/test/${testId}?n=${nQuestion + 1}`}>
             {nQuestion < answers.length - 1 && (
               <Button variant={'link'}>Next</Button>
             )}
@@ -80,7 +80,7 @@ async function TestInProgress({
           )}
           initialSelectedAnswer={activeAnswer.selectedAnswer}
           answerId={activeAnswer.id}
-          testId={params.test}
+          testId={testId}
           nQuestion={nQuestion}
         />
         <CompleteTest answers={answers || []} test={test} />

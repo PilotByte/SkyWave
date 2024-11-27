@@ -42,7 +42,8 @@ export const CompleteTest = ({ answers, test }: CompleteTestProps) => {
               .from('tests')
               .update({ finishedAt: new Date().toISOString() })
               .eq('id', test.id)
-              .then(() => {
+              .then(({ error, data }) => {
+                console.log(error, data);
                 setLoading(false);
                 router.push(`/test/result?test=${test.id}`);
               });
