@@ -5,19 +5,21 @@ import { cn } from '@/lib/utils';
 import dayjs from 'dayjs';
 import Link from 'next/link';
 import { Tables } from '@/lib/supabase/database.types';
+import { RepeatButton } from './RepeatButton';
 
 export const TotalResult = ({
   test,
   answers,
 }: {
   test: Tables<'tests'>;
-  answers: Tables<'answers'>[];
+  answers: (Tables<'answers'> & {
+    question: Tables<'questions'>;
+  })[];
 }) => {
   const correctAnswersCount = answers.filter((a) => a.isCorrect).length;
-  const wrongQuestions = answers?.filter((q) => {
-    const answer = answers.find((a) => a.question == q.id);
-    return !answer || !answer.isCorrect;
-  });
+  const wrongQuestions = answers
+    ?.filter((q) => q.isCorrect)
+    .map((q) => q.question);
   const testPercentage = (correctAnswersCount / (answers?.length || 1)) * 100;
   const testPassed = testPercentage >= 75;
   return (
@@ -71,6 +73,7 @@ export const TotalResult = ({
       <Separator />
       <div className="">
         <Link href="/test/new">
+          <RepeatButton test={test} wrongQuestions={wrongQuestions} />
           <Button className="w-full mt-3" variant={'secondary'}>
             New Test
           </Button>

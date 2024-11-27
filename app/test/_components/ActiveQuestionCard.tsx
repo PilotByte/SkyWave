@@ -86,7 +86,7 @@ export function ActiveQuestionCard({
   }, [answers, selectedAnswer, nQuestion, showSolution, saveAnswer]);
 
   return (
-    <Card>
+    <Card className="min-w-[400px]">
       <CardHeader>
         <CardTitle className="text-2xl font-bold">{question}</CardTitle>
       </CardHeader>
