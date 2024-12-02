@@ -82,6 +82,8 @@ async function TestInProgress({
           answerId={activeAnswer.id}
           testId={testId}
           nQuestion={nQuestion}
+          test={test}
+          imageUrl={question.image || undefined}
         />
         <CompleteTest answers={answers || []} test={test} />
       </div>

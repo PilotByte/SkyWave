@@ -27,6 +27,7 @@ export const QuestionList = ({
         )}
 
         {answers.map((answer, i) => {
+          if (i === 1) console.log(answer);
           const question = answer.question;
           return (
             <Link href={`/test/${test.id}?n=${i}`} key={question.id}>
@@ -41,11 +42,13 @@ export const QuestionList = ({
                 }
                 className={cn(
                   'flex-grow-1 w-[80px] m-1',
-
+                  test.examMode &&
+                    answer.selectedAnswer !== null &&
+                    'bg-primary',
                   !test.examMode &&
                     answer &&
                     answer.isCorrect &&
-                    'bg-green-700',
+                    'bg-green-700 text-black',
                   !test.examMode &&
                     answer.selectedAnswer &&
                     !answer.isCorrect &&
