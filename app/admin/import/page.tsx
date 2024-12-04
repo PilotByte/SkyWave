@@ -27,12 +27,12 @@ function Import() {
 
   const questionsParsed = questions.map((q) => ({
     title: q.question,
-    pdfId: q.lbaIndex,
+    pdfId: q.lbaIndex!,
     answers: q.answers.map((a, i) => ({
       text: a,
       correct: i == 0,
     })),
-    subject,
+    subject: subject!,
   }));
 
   return (
@@ -55,7 +55,6 @@ function Import() {
               text = text.replace('\n', '');
 
               const questions = parsePDF(text);
-              console.log(questions);
               setQuestions(questions);
             };
             reader.readAsText(file);

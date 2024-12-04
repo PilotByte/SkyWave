@@ -53,7 +53,5 @@ export const parsePDF = () => {
     return transformTextToObject(allQuestionsText);
   });
 
-  console.log(questions);
-
   return questions;
 };

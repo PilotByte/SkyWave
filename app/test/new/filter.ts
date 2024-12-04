@@ -1,7 +1,7 @@
-import { Database } from "@/lib/supabase/database.types";
+import { Database } from '@/lib/supabase/database.types';
 
-type Answer = Database["public"]["Tables"]["answers"]["Row"]
-type Question = Database["public"]["Tables"]["questions"]["Row"]
+type Answer = Database['public']['Tables']['answers']['Row'];
+type Question = Database['public']['Tables']['questions']['Row'];
 
 interface Filter {
   name: string;
@@ -16,7 +16,7 @@ export const filter: Filter[] = [
     description:
       'Filters out all questions that you have not seen in tests before',
     value: 'not-answered',
-    getFilterFn: (answers: Answer[]) => (question: Question) => {
+    getFilterFn: (answers: Answer[]) => () => {
       return answers?.length === 0; // true if there are no answers for this question
     },
   },
@@ -24,15 +24,15 @@ export const filter: Filter[] = [
     name: 'Has Image',
     value: 'has-image',
     description: 'Allows only questions that have an image attached',
-    getFilterFn: (answers: Answer[]) => (question: Question) => {
+    getFilterFn: () => (question: Question) => {
       return question.image !== null;
     },
   },
   {
     name: 'Mostly answered wrong',
     value: 'wrong-more-than-75',
-    description: 'Only questions answered more than 75% of the time',
-    getFilterFn: (answers: Answer[]) => (question: Question) => {
+    description: 'Only questions answered wrong more than 75% of the time',
+    getFilterFn: (answers: Answer[]) => () => {
       const wrongAnswers = answers?.filter((a) => !a.isCorrect);
       const wrongPercentage = wrongAnswers.length / answers.length;
       return answers && wrongPercentage > 0.75;
@@ -44,7 +44,7 @@ export const filter: Filter[] = [
     value: 'wrong-less-than-75',
     description:
       'Only questions answered wrong between 50% and 75% of the time',
-    getFilterFn: (answers: Answer[]) => (question: Question) => {
+    getFilterFn: (answers: Answer[]) => () => {
       const wrongAnswers = answers?.filter((a) => !a.isCorrect);
       const wrongPercentage = wrongAnswers.length / answers.length;
 
@@ -52,18 +52,18 @@ export const filter: Filter[] = [
     },
   },
   {
-    name: 'frequently answered wrong',
+    name: 'Frequently answered wrong',
     value: 'wrong-less-than-50',
     description:
       'Only questions answered wrong between 25% and 50% of the time',
-    getFilterFn: (answers: Answer[]) => (question: Question) => {
+    getFilterFn: (answers: Answer[]) => () => {
       const wrongAnswers = answers?.filter((a) => !a.isCorrect);
       const wrongPercentage = wrongAnswers.length / answers.length;
       return wrongPercentage <= 0.5 && wrongPercentage > 0.25;
     },
   },
   {
-    name: 'rarely answered wrong',
+    name: 'Rarely answered wrong',
     value: 'wrong-less-than-25',
     description: 'Only questions answered less than 25% of the time',
     getFilterFn: (answers: Answer[]) => (question: Question) => {

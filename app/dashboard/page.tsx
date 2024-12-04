@@ -31,7 +31,6 @@ function Dashboard() {
         console.error(error);
         return;
       }
-      console.log(data);
       // reduce to tests with answers with types
       const tests = data.reduce<
         (Tables<'tests'> & {
@@ -55,7 +54,6 @@ function Dashboard() {
 
     fetchAnswers();
   }, [client]);
-  console.log(tests);
   return (
     <div>
       <div className="grid gap-4 grid-cols-1 mt-4">

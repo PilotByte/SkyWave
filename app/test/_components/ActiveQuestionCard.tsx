@@ -42,7 +42,8 @@ export function ActiveQuestionCard({
     initialSelectedAnswer
   );
   const searchParams = useSearchParams();
-  const showSolution = searchParams.get('showSolution') === 'true';
+  const [showSolution, setShowSolution] = useState(false);
+  const showSolutionUrl = searchParams.get('showSolution') === 'true';
 
   const saveAnswer = useCallback(
     async (index: number) => {
@@ -69,7 +70,12 @@ export function ActiveQuestionCard({
   );
 
   useEffect(() => {
+    setShowSolution(showSolutionUrl);
+  }, [showSolutionUrl]);
+
+  useEffect(() => {
     setSelectedAnswer(initialSelectedAnswer);
+    setShowSolution(initialSelectedAnswer !== null);
   }, [initialSelectedAnswer]);
 
   console.log(selectedAnswer, initialSelectedAnswer);
