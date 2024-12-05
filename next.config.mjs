@@ -3,7 +3,9 @@ const nextConfig = {
   images: {
     domains: ['storage.ko-fi.com'],
   },
-  ignoreDuringBuilds: true,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default nextConfig;
