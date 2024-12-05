@@ -7,9 +7,13 @@ function CustomFooter() {
       <div className="container mx-auto px-4">
         <div className="flex flex-col sm:flex-row justify-center items-center">
           <nav className="flex space-x-4">
-            <p className="text-sm">
+            <Link
+              href="/support"
+              className="text-sm hover:text-white transition-colors duration-200"
+            >
               &copy; {new Date().getFullYear()} PilotByte GbR
-            </p>
+            </Link>
+
             <Link
               href="/impressum"
               className="text-sm hover:text-white transition-colors duration-200"

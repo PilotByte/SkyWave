@@ -3,7 +3,7 @@ import localFont from 'next/font/local';
 import './globals.css';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { Header } from '@/components/Header';
-import CustomFooter from '@/components/CustomFooter';
+import CustomFooter from '@/components/Footer';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -33,7 +33,7 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Header />
-          <div className="max-w-[1000px] mx-auto px-4 px- mt-5">{children}</div>
+          <div className="max-w-[1000px] mx-auto px-4 my-5">{children}</div>
         </ThemeProvider>
 
         <CustomFooter />
