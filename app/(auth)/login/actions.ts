@@ -20,7 +20,7 @@ export async function login(formData: FormData) {
     redirect(`/login?error=${error.message}`);
   }
 
-  revalidatePath('/', 'layout');
+  revalidatePath('/dashboard', 'layout');
   redirect('/');
 }
 
