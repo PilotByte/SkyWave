@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import React, { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Controller, useForm } from "react-hook-form";
-import { z } from "zod";
+import { Button } from '@/components/ui/button';
+import React, { useEffect, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Controller, useForm } from 'react-hook-form';
+import { z } from 'zod';
 import {
   Form,
   FormControl,
@@ -12,41 +12,40 @@ import {
   FormField,
   FormItem,
   FormLabel,
-} from "@/components/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import CardSelector from "../_components/CardSelector";
-import { Switch } from "@/components/ui/switch";
-import { Slider } from "@/components/ui/slider";
-import { Input } from "@/components/ui/input";
-import { createClient } from "@/lib/supabase/client";
-import { Database } from "@/lib/supabase/database.types";
-import { Filters } from "./Filters";
-import { filter } from "./filter";
-import { useMemo } from "react";
-import test from "node:test";
+} from '@/components/ui/form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import CardSelector from '../_components/CardSelector';
+import { Switch } from '@/components/ui/switch';
+import { Slider } from '@/components/ui/slider';
+import { Input } from '@/components/ui/input';
+import { createClient } from '@/lib/supabase/client';
+import { Database } from '@/lib/supabase/database.types';
+import { Filters } from './Filters';
+import { filter } from './filter';
+import { useMemo } from 'react';
 
 export const FormSchema = z.object({
   examMode: z.boolean(),
-  subject: z.enum(["azf", "bzf", "bzfe"]),
+  subject: z.enum(['azf', 'bzf', 'bzfe']),
   amount: z.number().min(1),
   filter: z.array(z.string()),
 });
 
 const subjects = [
   {
-    subject: "azf",
-    title: "AZF",
-    description: "Start a test with the current AZF catalog",
+    subject: 'azf',
+    title: 'AZF',
+    description: 'Start a test with the current AZF catalog',
   },
   {
-    subject: "bzf",
-    title: "BZF",
-    description: "Start a test with the current BZF catalog",
+    subject: 'bzf',
+    title: 'BZF',
+    description: 'Start a test with the current BZF catalog',
   },
   {
-    subject: "bzfe",
-    title: "BZF-E",
-    description: "Start a test with the current BZF-E catalog",
+    subject: 'bzfe',
+    title: 'BZF-E',
+    description: 'Start a test with the current BZF-E catalog',
   },
 ];
 
@@ -56,48 +55,50 @@ function NewTestPage() {
   const searchParams = useSearchParams();
 
   const [questions, setQuestions] = useState<
-    Database["public"]["Tables"]["questions"]["Row"][]
+    Database['public']['Tables']['questions']['Row'][]
   >([]);
 
   const [answers, setAnswers] = useState<
-    Database["public"]["Tables"]["answers"]["Row"][]
+    Database['public']['Tables']['answers']['Row'][]
   >([]);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       examMode: false,
-      subject: (searchParams.get("pool") ||
-        "azf") as (typeof FormSchema)["_output"]["subject"],
+      subject: (searchParams.get('pool') ||
+        'azf') as (typeof FormSchema)['_output']['subject'],
       amount: 1, // change to catalog amount
       filter: [],
     },
   });
-  const subject = form.watch("subject");
-  const formFilter = form.watch("filter");
-  const amount = form.watch("amount");
+  const subject = form.watch('subject');
+  const formFilter = form.watch('filter');
+  const amount = form.watch('amount');
 
-  const filteredQuestions = useMemo(() => 
-    questions.filter((fq) => {
-      return filter.some((f) => {
-        const filterFunction = f.getFilterFn(
-          answers.filter((a) => a.question == fq.id) || []
-        );
-        if (!formFilter.length) return true;
-        if (!formFilter.includes(f.value)) return false;
-        return filterFunction(fq);
-      });
-    }), [questions, answers, formFilter]
-  ) 
+  const filteredQuestions = useMemo(
+    () =>
+      questions.filter((fq) => {
+        return filter.some((f) => {
+          const filterFunction = f.getFilterFn(
+            answers.filter((a) => a.question == fq.id) || []
+          );
+          if (!formFilter.length) return true;
+          if (!formFilter.includes(f.value)) return false;
+          return filterFunction(fq);
+        });
+      }),
+    [questions, answers, formFilter]
+  );
 
   useEffect(() => {
-    form.setValue("amount", filteredQuestions.length);
-  }, [filteredQuestions, form.setValue])
+    form.setValue('amount', filteredQuestions.length);
+  }, [filteredQuestions, form]);
 
   const reducedQuestions = [...filteredQuestions];
-  const countQuestionsToBeRemoved = filteredQuestions.length - amount
-      
-   // number of items to remove
+  const countQuestionsToBeRemoved = filteredQuestions.length - amount;
+
+  // number of items to remove
   for (let i = 0; i < countQuestionsToBeRemoved; i++) {
     const randomIndex = Math.floor(Math.random() * reducedQuestions.length);
     reducedQuestions.splice(randomIndex, 1);
@@ -106,9 +107,9 @@ function NewTestPage() {
   useEffect(() => {
     const getSubjectAnswers = async () => {
       const { data, error } = await client
-        .from("answers")
-        .select("*, test (subject)")
-        .eq("test.subject", subject);
+        .from('answers')
+        .select('*, test (subject)')
+        .eq('test.subject', subject);
       if (error) {
         console.error(error);
         return;
@@ -116,12 +117,12 @@ function NewTestPage() {
       setAnswers(data);
     };
     getSubjectAnswers();
-    
+
     const getSubjectQuestions = async () => {
       const { data, error } = await client
-        .from("questions")
-        .select("*")
-        .eq("subject", subject);
+        .from('questions')
+        .select('*')
+        .eq('subject', subject);
       if (error) {
         console.error(error);
         return;
@@ -132,32 +133,40 @@ function NewTestPage() {
   }, [client, subject]);
 
   async function onSubmit(formData: z.infer<typeof FormSchema>) {
-    const {data: user} = await client.auth.getUser()
+    const { data: user } = await client.auth.getUser();
 
-    const userId = user.user?.id
+    const userId = user.user?.id;
     if (!userId) {
       return;
     }
 
-    const {data: newTest, error} = await client.from("tests").insert({
-      user: userId,
-      finishedAt: null,
-      examMode: formData.examMode,
-      excludeFromStatistics: false,
-      subject: formData.subject,
-    }).select("*").single()
+    const { data: newTest, error } = await client
+      .from('tests')
+      .insert({
+        user: userId,
+        finishedAt: null,
+        examMode: formData.examMode,
+        excludeFromStatistics: false,
+        subject: formData.subject,
+      })
+      .select('*')
+      .single();
 
-    if(error || !newTest) {
+    if (error || !newTest) {
       console.error(error);
       return;
     }
 
-    await client.from("answers").insert(reducedQuestions.map((question) => ({
-      user: userId,
-      question: question.id,
-      test: newTest.id,
-    })));
-    
+    await client.from('answers').insert(
+      reducedQuestions
+        .map((question) => ({
+          user: userId,
+          question: question.id,
+          test: newTest.id,
+        }))
+        .sort(() => Math.random() - 0.5)
+    );
+
     router.push(`/test/${newTest.id}`);
   }
   return (
@@ -239,7 +248,6 @@ function NewTestPage() {
                     )}
                   />
                   <span>/ {filteredQuestions.length}</span>
-                  <span>/ {reducedQuestions.length}</span>
                 </FormLabel>
                 <FormControl>
                   <Slider
