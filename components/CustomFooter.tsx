@@ -6,12 +6,10 @@ function CustomFooter() {
     <footer className="bg-secondary text-muted-foreground py-6 mt-auto">
       <div className="container mx-auto px-4">
         <div className="flex flex-col sm:flex-row justify-center items-center">
-          <div className="mb-4 sm:mb-0 flex items-center">
-            <p className="text-sm mr-4">
+          <nav className="flex space-x-4">
+            <p className="text-sm">
               &copy; {new Date().getFullYear()} PilotByte GbR
             </p>
-          </div>
-          <nav className="flex space-x-4 mx-6">
             <Link
               href="/impressum"
               className="text-sm hover:text-white transition-colors duration-200"

@@ -51,14 +51,15 @@ const Header = () => {
      items-center justify-center bg-secondary drop-shadow"
     >
       {/* Navbar items */}
-      <div className="absolute left-10">
+      <div className="absolute left-10 flex items-center gap-2">
         <Image
           src={logo}
           alt="Logo"
-          width={50}
-          height={50}
+          width={40}
+          height={40}
           className="rounded-full bg-slate-300 p-0"
         />
+        <h4 className="font-bold text-sm1">Skywave</h4>
       </div>
       <div className="flex justify-center w-full md:w-auto">
         {userMetadata && (
