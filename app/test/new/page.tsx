@@ -158,11 +158,13 @@ function NewTestPage() {
     }
 
     await client.from('answers').insert(
-      reducedQuestions.map((question) => ({
-        user: userId,
-        question: question.id,
-        test: newTest.id,
-      }))
+      reducedQuestions
+        .map((question) => ({
+          user: userId,
+          question: question.id,
+          test: newTest.id,
+        }))
+        .sort(() => Math.random() - 0.5)
     );
 
     router.push(`/test/${newTest.id}`);
