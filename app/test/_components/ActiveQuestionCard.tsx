@@ -48,7 +48,6 @@ export function ActiveQuestionCard({
   const saveAnswer = useCallback(
     async (index: number) => {
       setSelectedAnswer(index);
-      console.log('saving asnwer', answers[index], selectedAnswer);
       const isCorrect = answers[index].correct;
       const { error, data } = await client
         .from('answers')
@@ -66,7 +65,7 @@ export function ActiveQuestionCard({
         router.refresh();
       }
     },
-    [answers, selectedAnswer, answerId, client, router, test, testId, nQuestion]
+    [answers, answerId, client, router, test, testId, nQuestion]
   );
 
   useEffect(() => {
@@ -77,8 +76,6 @@ export function ActiveQuestionCard({
     setSelectedAnswer(initialSelectedAnswer);
     setShowSolution(initialSelectedAnswer !== null);
   }, [initialSelectedAnswer]);
-
-  console.log(selectedAnswer, initialSelectedAnswer);
 
   const AnswerButtons = useMemo(() => {
     const letters = ['A', 'B', 'C', 'D'];

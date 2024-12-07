@@ -4,8 +4,9 @@ import { ClickableCard } from '@/components/ui/clickable-card';
 import ProgressChartWithLabel from './_components/ProgressChart';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { Tables } from '@/lib/supabase/database.types';
+import { UnfinishedTests } from './_components/UnfinishedTests';
 
 function Dashboard() {
   const router = useRouter();
@@ -54,6 +55,11 @@ function Dashboard() {
 
     fetchAnswers();
   }, [client]);
+
+  const unfinishedTests = useMemo(
+    () => tests.filter((test) => !test.finishedAt),
+    [tests]
+  );
   return (
     <div>
       <div className="grid gap-4 grid-cols-1 mt-4">
@@ -65,6 +71,9 @@ function Dashboard() {
             description="This graph shows your progress from the last 10 tests"
           />
         </div>
+        {unfinishedTests.length > 0 && (
+          <UnfinishedTests unfinishedTests={unfinishedTests} />
+        )}
 
         {/* AZF/BZF clickable cards */}
         <div className="flex justify-center space-x-4 mt-4 mb-4">

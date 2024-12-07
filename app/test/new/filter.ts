@@ -17,7 +17,7 @@ export const filter: Filter[] = [
       'Filters out all questions that you have not seen in tests before',
     value: 'not-answered',
     getFilterFn: (answers: Answer[]) => () => {
-      return answers?.length === 0; // true if there are no answers for this question
+      return answers?.length === 0 || !answers.some((a) => a.selectedAnswer); // true if there are no answers for this question
     },
   },
   {

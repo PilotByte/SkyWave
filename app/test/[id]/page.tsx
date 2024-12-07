@@ -44,8 +44,6 @@ async function TestInProgress({
     return redirect(`/test/${testId}?n=0`);
   }
 
-  console.log(activeAnswer);
-
   const question = activeAnswer.question as unknown as Tables<'questions'>;
 
   return (

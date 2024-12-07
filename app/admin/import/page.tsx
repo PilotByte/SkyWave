@@ -84,12 +84,7 @@ function Import() {
               setLoading(true);
 
               for (const q of questionsParsed) {
-                const result = await client
-                  .from('questions')
-                  .insert(q)
-                  .select('*')
-                  .single();
-                console.log(result);
+                await client.from('questions').insert(q).select('*').single();
                 setProgress((prev) => prev + 1);
               }
 

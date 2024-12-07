@@ -27,7 +27,6 @@ const ResultTestPage = async ({
     .eq('test', searchParams?.test)
     .order('id', { ascending: true });
 
-  console.log(answers, test);
   if (!test || !answers) return null;
 
   return (
@@ -51,7 +50,7 @@ const ResultTestPage = async ({
             </div>
             <Separator className="my-2" />
 
-            {a.selectedAnswer && (
+            {a.selectedAnswer ? (
               <div className="flex gap-3">
                 {a.isCorrect ? (
                   <Check className="h-5" />
@@ -73,29 +72,15 @@ const ResultTestPage = async ({
                   }
                 </p>
               </div>
+            ) : (
+              ''
             )}
-            {!a?.isCorrect && (
-              <div className="flex gap-3">
-                <Check className="h-5" />
-                <p>
-                  {
-                    (
-                      a.question.answers.find(
-                        (a: unknown) =>
-                          (
-                            a as {
-                              correct: boolean;
-                            }
-                          )?.correct
-                      ) as {
-                        isCorrect: boolean;
-                        text: string;
-                      }
-                    )?.text
-                  }
-                </p>
-              </div>
-            )}
+
+            <div className="flex gap-3">
+              <Check className="h-5" />
+              <p>{a.question.answers.find((a: any) => a.correct)?.text}</p>
+            </div>
+
             <div className="flex justify-end gap-1">
               <Badge>{a?.isCorrect ? 'Correct' : 'incorrect'}</Badge>
             </div>

@@ -1,7 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['pilotbyte.de', 'pgyilvoitcbzmpeiebvf.supabase.co'],
+    domains: [
+      'storage.ko-fi.com',
+      'pilotbyte.de',
+      'pgyilvoitcbzmpeiebvf.supabase.co',
+    ],
   },
   eslint: {
     ignoreDuringBuilds: true,

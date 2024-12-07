@@ -64,12 +64,13 @@ const Header = () => {
       <div className="flex justify-center w-full md:w-auto">
         {userMetadata && (
           <Tabs
-            defaultValue={(function () {
+            value={(function () {
               if (path.includes('dashboard')) return 'dashboard';
               if (path.includes('test')) return 'test';
               if (path.includes('admin')) return 'admin';
+              if (path.includes('helpdesk')) return 'helpdesk';
               if (path.includes('support')) return 'support';
-              return 'dashboard';
+              return '';
             })()}
           >
             <TabsList className="flex justify-center w-full">
@@ -85,7 +86,7 @@ const Header = () => {
                 </TabsTrigger>
               </Link>
               <Link href="/helpdesk" passHref>
-                <TabsTrigger value="statistics" className="flex-1 text-center">
+                <TabsTrigger value="helpdesk" className="flex-1 text-center">
                   Helpdesk
                 </TabsTrigger>
               </Link>

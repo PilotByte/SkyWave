@@ -27,7 +27,6 @@ export const QuestionList = ({
         )}
 
         {answers.map((answer, i) => {
-          if (i === 1) console.log(answer);
           const question = answer.question;
           return (
             <Link href={`/test/${test.id}?n=${i}`} key={question.id}>
