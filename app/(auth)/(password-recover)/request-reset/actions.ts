@@ -13,5 +13,5 @@ export const sendResetEmail = async (formData: FormData) => {
   if (error) {
     return redirect(`/request-reset?error=${error.message}`);
   }
-  redirect(`/login?info=Password reset link sent to ${email}, it it exists`);
+  redirect(`/login?info=Password reset link sent to ${email}, if it exists`);
 };
