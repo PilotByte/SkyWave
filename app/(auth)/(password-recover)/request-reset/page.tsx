@@ -44,15 +44,15 @@ const RequestReset = ({
               {searchParams?.error}
             </p>
             <p className="font-bold text-lg">{searchParams?.info}</p>
-            <div className="flex w-full">
+            <div className="flex w-full gap-3">
+              <Button className="font-bold flex-1" formAction={sendResetEmail}>
+                Reset Password
+              </Button>
               <Link href={'/login'} className="flex-1 flex">
                 <Button variant="ghost" className="flex-1">
                   login
                 </Button>
               </Link>
-              <Button className="font-bold flex-1" formAction={sendResetEmail}>
-                Reset Password
-              </Button>
             </div>
           </CardFooter>
         </form>

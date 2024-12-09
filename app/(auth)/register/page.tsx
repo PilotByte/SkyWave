@@ -50,22 +50,29 @@ function RegisterCard({
                 </div>
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="password">Password</Label>
-                  <Input name="password" id="password" type="password" placeholder="Password" />
+                  <Input
+                    name="password"
+                    id="password"
+                    type="password"
+                    placeholder="Password"
+                  />
                 </div>
               </div>
             </CardContent>
             <CardFooter className="flex flex-col items-stretch gap-3">
-              <Link href="/login">
-                <p className="cursor-pointer">
-                  Already have an account? Login here!
-                </p>
-              </Link>
+              <div className="flex w-full gap-3">
+                <Button className="font-bold flex-1" formAction={signup}>
+                  Register
+                </Button>
+                <Link href={'/login'} className="flex-1 flex">
+                  <Button variant="ghost" className="flex-1">
+                    Back to login
+                  </Button>
+                </Link>
+              </div>
               <p className="text-red-600 font-bold text-lg">
                 {searchParams?.error}
               </p>
-              <Button className="font-bold flex-1" formAction={signup}>
-                Register
-              </Button>
             </CardFooter>
           </form>
         </Card>
