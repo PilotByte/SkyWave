@@ -18,7 +18,7 @@ export const TotalResult = ({
 }) => {
   const correctAnswersCount = answers.filter((a) => a.isCorrect).length;
   const wrongQuestions = answers
-    ?.filter((q) => q.isCorrect)
+    ?.filter((q) => !q.isCorrect)
     .map((q) => q.question);
   const testPercentage = (correctAnswersCount / (answers?.length || 1)) * 100;
   const testPassed = testPercentage >= 75;
@@ -73,7 +73,9 @@ export const TotalResult = ({
       <Separator />
       <div className="">
         <Link href="/test/new">
-          <RepeatButton test={test} wrongQuestions={wrongQuestions} />
+          {!!wrongQuestions.length && (
+            <RepeatButton test={test} wrongQuestions={wrongQuestions} />
+          )}
           <Button className="w-full mt-3" variant={'secondary'}>
             New Test
           </Button>

@@ -26,8 +26,7 @@ function Dashboard() {
           'test.created_at',
           new Date(Date.now() - 1000 * 60 * 60 * 24 * 7).toISOString()
         ) // Last 7 days
-        .order('created_at', { ascending: false })
-        .limit(10);
+        .order('created_at', { ascending: false });
       if (error) {
         console.error(error);
         return;
@@ -60,6 +59,7 @@ function Dashboard() {
     () => tests.filter((test) => !test.finishedAt),
     [tests]
   );
+  console.log(unfinishedTests, tests);
   return (
     <div>
       <div className="grid gap-4 grid-cols-1 mt-4">
@@ -74,7 +74,6 @@ function Dashboard() {
         {unfinishedTests.length > 0 && (
           <UnfinishedTests unfinishedTests={unfinishedTests} />
         )}
-
         {/* AZF/BZF clickable cards */}
         <div className="flex justify-center space-x-4 mt-4 mb-4">
           <ClickableCard

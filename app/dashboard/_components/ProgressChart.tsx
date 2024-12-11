@@ -52,6 +52,7 @@ const ProgressChart = ({
           axisLine={false}
         />
         <YAxis
+          domain={[0, 100]}
           stroke="#888888"
           fontSize={12}
           tickLine={false}
