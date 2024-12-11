@@ -50,22 +50,22 @@ function LoginCard({
             </div>
           </CardContent>
           <CardFooter className="flex flex-col gap-3">
-            <Link href="/register" className="w-full">
-              <p className="cursor-pointer">No account yet? Register now!</p>
+            <Link href="/request-reset" className="w-full">
+              <p className="cursor-pointer">Forgot password?</p>
             </Link>
             <p className="text-red-600 font-bold text-lg">
               {searchParams?.error}
             </p>
             <p className="font-bold text-lg">{searchParams?.info}</p>
-            <div className="flex w-full">
-              <Link href={'/request-reset'} className="flex-1 flex">
-                <Button variant="ghost" className="flex-1">
-                  Forgot password?
-                </Button>
-              </Link>
+            <div className="flex w-full gap-3">
               <Button className="font-bold flex-1" formAction={login}>
                 Login
               </Button>
+              <Link href={'/register'} className="flex-1 flex">
+                <Button variant="ghost" className="flex-1">
+                  Register here
+                </Button>
+              </Link>
             </div>
           </CardFooter>
         </form>

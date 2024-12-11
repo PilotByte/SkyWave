@@ -66,14 +66,14 @@ const RequestReset = () => {
               </p>
             )}
             <div className="flex w-full">
+              <Button className="font-bold flex-1" formAction={resetPassword}>
+                Reset Password
+              </Button>
               <Link href={'/login'} className="flex-1 flex">
                 <Button variant="ghost" className="flex-1">
                   login
                 </Button>
               </Link>
-              <Button className="font-bold flex-1" formAction={resetPassword}>
-                Reset Password
-              </Button>
             </div>
           </CardFooter>
         </form>
