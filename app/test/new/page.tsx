@@ -35,17 +35,17 @@ const subjects = [
   {
     subject: 'azf',
     title: 'AZF',
-    description: 'Start a test with the current AZF catalog',
+    description: 'AZF Catalog - Date: 1st May 2024',
   },
   {
     subject: 'bzf',
     title: 'BZF',
-    description: 'Start a test with the current BZF catalog',
+    description: 'BZF Catalog - Date: 1st May 2024',
   },
   {
     subject: 'bzfe',
     title: 'BZF-E',
-    description: 'Start a test with the current BZF-E catalog',
+    description: 'BZF-E Catalog - Date: 1st May 2024',
   },
 ];
 
